@@ -8,8 +8,7 @@ namespace ShareBook.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<LoanStatus> builder)
         {
-            builder.Property(b => b.LoanStarted).IsRequired();
-            builder.Property(b => b.DueBack).IsRequired();
+            builder.Property(b => b.Status).IsRequired();
             builder.Property(b => b.BorrowerId).IsRequired();
         }
     }

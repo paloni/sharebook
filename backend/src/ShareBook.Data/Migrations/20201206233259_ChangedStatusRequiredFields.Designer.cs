@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ShareBook.Data;
@@ -9,9 +10,10 @@ using ShareBook.Data;
 namespace ShareBook.Data.Migrations
 {
     [DbContext(typeof(ShareBookDbContext))]
-    partial class ShareBookDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201206233259_ChangedStatusRequiredFields")]
+    partial class ChangedStatusRequiredFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -386,10 +388,10 @@ namespace ShareBook.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime?>("DueBack")
+                    b.Property<DateTime>("DueBack")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime?>("LoanStarted")
+                    b.Property<DateTime>("LoanStarted")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("Status")
