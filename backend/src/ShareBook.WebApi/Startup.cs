@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using ShareBook.Data;
 
 namespace ShareBook.WebApi
 {
@@ -32,6 +34,10 @@ namespace ShareBook.WebApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ShareBook.WebApi", Version = "v1" });
             });
+            services.AddDbContext<ShareBookDbContext>(options =>
+                options.UseNpgsql(
+                Configuration.GetConnectionString("DefaultConnection"),
+                x => x.MigrationsAssembly("ShareBook.Data")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
