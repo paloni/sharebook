@@ -8,8 +8,8 @@ namespace ShareBook.Domain.Entities
         public Guid BookInstanceId { get; set; }
         public BookInstance BookInstance { get; set; }
         public LoanStatusType Status { get; set; }
-        public DateTime LoanStarted { get; set; }
-        public DateTime DueBack { get; set; }
+        public DateTime? LoanStarted { get; set; }
+        public DateTime? DueBack { get; set; }
         public string BorrowerId { get; set; }
     }
     public enum LoanStatusType
@@ -17,6 +17,7 @@ namespace ShareBook.Domain.Entities
         Requested,
         Declined,
         Approved,
+        Given,
         Returned
     }
 }
