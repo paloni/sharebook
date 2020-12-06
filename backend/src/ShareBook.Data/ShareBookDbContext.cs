@@ -16,6 +16,7 @@ namespace ShareBook.Data
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<LoanStatus> LoanStatuses { get; set; }
+        public DbSet<Tag> Tags { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(assembly: typeof(ShareBookDbContext).Assembly);

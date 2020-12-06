@@ -28,6 +28,11 @@ namespace ShareBook.Data.Configurations
                     .WithOne(b => b.Book)
                     .HasForeignKey(b => b.BookId);
 
+            builder
+                    .HasMany(b => b.Tags)
+                    .WithMany(b => b.Books)
+                    .UsingEntity(b => b.ToTable("BookTags"));
+
             builder.Property(b => b.Title).IsRequired();
             builder.Property(b => b.OwnerId).IsRequired();
             builder.Property(b => b.Summary).HasMaxLength(2000);
