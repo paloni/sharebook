@@ -6,6 +6,10 @@ using ShareBook.Domain.Models;
 
 namespace ShareBook.Domain.Services
 {
+    public interface IBookService
+    {
+        Task<IEnumerable<BookDetails>> GetBooksByUserAsync(string userId);
+    }
     public class BookService : IBookService
     {
         private readonly IBookRepository bookRepository;

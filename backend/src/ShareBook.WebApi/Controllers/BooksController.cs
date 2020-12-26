@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ShareBook.Domain.Interfaces;
 using ShareBook.Domain.Models;
+using ShareBook.Domain.Services;
 
 namespace ShareBook.WebApi.Controllers
 {

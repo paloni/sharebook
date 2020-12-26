@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ShareBook.Data.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,6 +27,8 @@ namespace ShareBook.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
+                    FirstName = table.Column<string>(type: "text", nullable: true),
+                    LastName = table.Column<string>(type: "text", nullable: true),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -86,6 +88,19 @@ namespace ShareBook.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Languages", x => x.LanguageId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tags",
+                columns: table => new
+                {
+                    TagId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tags", x => x.TagId);
                 });
 
             migrationBuilder.CreateTable(
@@ -202,6 +217,7 @@ namespace ShareBook.Data.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Title = table.Column<string>(type: "text", nullable: false),
                     Summary = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: true),
+                    Thumbnail = table.Column<string>(type: "text", nullable: true),
                     Isbn13 = table.Column<string>(type: "text", nullable: true),
                     Isbn10 = table.Column<string>(type: "text", nullable: true),
                     LanguageId = table.Column<int>(type: "integer", nullable: false),
@@ -286,6 +302,30 @@ namespace ShareBook.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BookTags",
+                columns: table => new
+                {
+                    BooksBookId = table.Column<int>(type: "integer", nullable: false),
+                    TagsTagId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BookTags", x => new { x.BooksBookId, x.TagsTagId });
+                    table.ForeignKey(
+                        name: "FK_BookTags_Books_BooksBookId",
+                        column: x => x.BooksBookId,
+                        principalTable: "Books",
+                        principalColumn: "BookId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BookTags_Tags_TagsTagId",
+                        column: x => x.TagsTagId,
+                        principalTable: "Tags",
+                        principalColumn: "TagId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "LoanStatuses",
                 columns: table => new
                 {
@@ -293,8 +333,8 @@ namespace ShareBook.Data.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     BookInstanceId = table.Column<Guid>(type: "uuid", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false),
-                    LoanStarted = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    DueBack = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    LoanStarted = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DueBack = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     BorrowerId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -366,6 +406,11 @@ namespace ShareBook.Data.Migrations
                 column: "LanguageId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_BookTags_TagsTagId",
+                table: "BookTags",
+                column: "TagsTagId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_LoanStatuses_BookInstanceId",
                 table: "LoanStatuses",
                 column: "BookInstanceId",
@@ -396,6 +441,9 @@ namespace ShareBook.Data.Migrations
                 name: "BookGenres");
 
             migrationBuilder.DropTable(
+                name: "BookTags");
+
+            migrationBuilder.DropTable(
                 name: "LoanStatuses");
 
             migrationBuilder.DropTable(
@@ -409,6 +457,9 @@ namespace ShareBook.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Genres");
+
+            migrationBuilder.DropTable(
+                name: "Tags");
 
             migrationBuilder.DropTable(
                 name: "BookInstances");

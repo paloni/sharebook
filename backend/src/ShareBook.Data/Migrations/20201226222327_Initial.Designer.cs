@@ -10,8 +10,8 @@ using ShareBook.Data;
 namespace ShareBook.Data.Migrations
 {
     [DbContext(typeof(ShareBookDbContext))]
-    [Migration("20201206233259_ChangedStatusRequiredFields")]
-    partial class ChangedStatusRequiredFields
+    [Migration("20201226222327_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -215,6 +215,12 @@ namespace ShareBook.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
 
+                    b.Property<string>("FirstName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("text");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
 
@@ -388,10 +394,10 @@ namespace ShareBook.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("DueBack")
+                    b.Property<DateTime?>("DueBack")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime>("LoanStarted")
+                    b.Property<DateTime?>("LoanStarted")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("Status")
