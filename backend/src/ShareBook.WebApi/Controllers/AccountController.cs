@@ -25,9 +25,9 @@ namespace JWTAuthentication.Controllers
         public AuthenticateController(IConfiguration _configuration, IUserService _userService,
                                     ILogger<AuthenticateController> _logger)
         {
-            this._configuration = _configuration;
-            this._userService = _userService;
-            this._logger = _logger;
+            this._configuration = _configuration ?? throw new ArgumentNullException(nameof(_configuration));
+            this._userService = _userService ?? throw new ArgumentNullException(nameof(_userService));
+            this._logger = _logger ?? throw new ArgumentNullException(nameof(_logger));
         }
 
         [HttpPost]

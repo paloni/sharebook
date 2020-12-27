@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ShareBook.Domain.Entities;
 using ShareBook.Domain.Interfaces;
@@ -22,7 +23,20 @@ namespace ShareBook.Domain.Services
         {
             IEnumerable<Book> models = await bookRepository.GetBooksByUserAsync(userId);
 
-            return null;
+            return models.Select(b => new BookDetails()
+            {
+                Id = b.BookId,
+                Title = b.Title,
+                Summary = b.Summary,
+                Thumbnail = b.Thumbnail,
+                Isbn13 = b.Isbn13,
+                Isbn10 = b.Isbn10,
+                Authors = b.Authors.Select(a => a.Name),
+                Genres = b.Genres.Select(g => g.Name),
+                Tags = b.Tags.Select(t => t.Name),
+                Language = b.Language.Name,
+                Quantity = b.BookInstances.Count
+            });
         }
     }
 }

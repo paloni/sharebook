@@ -17,8 +17,8 @@ namespace ShareBook.WebApi.Controllers
 
         public BooksController(IBookService _bookService, ILogger<BooksController> _logger)
         {
-            this._bookService = _bookService;
-            this._logger = _logger;
+            this._bookService = _bookService ?? throw new System.ArgumentNullException(nameof(_bookService));
+            this._logger = _logger ?? throw new System.ArgumentNullException(nameof(_logger));
         }
 
         [HttpGet]
