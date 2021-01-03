@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace ShareBook.Domain.Models
@@ -10,6 +11,8 @@ namespace ShareBook.Domain.Models
         public string Thumbnail { get; set; }
         public string Isbn13 { get; set; }
         public string Isbn10 { get; set; }
+        public string Publisher { get; set; }
+        public int? PageCount { get; set; }
         public IEnumerable<string> Authors { get; set; }
         public IEnumerable<string> Genres { get; set; }
         public IEnumerable<string> Tags { get; set; }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace ShareBook.GoogleBooks.Models
@@ -17,8 +18,10 @@ namespace ShareBook.GoogleBooks.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public ImageLink ImageLinks { get; set; }
-        public IEnumerable<IndustryIdentifier> industryIdentifiers { get; set; }
+        public IEnumerable<IndustryIdentifier> IndustryIdentifiers { get; set; }
         public IEnumerable<string> Authors { get; set; }
         public string Language { get; set; }
+        public string Publisher { get; set; }
+        public int? PageCount { get; set; }
     }
 }

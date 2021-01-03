@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Configuration;
 using System.Text.Json;
 using System.Threading.Tasks;
 using ShareBook.Domain.Models;
@@ -37,7 +36,15 @@ namespace ShareBook.GoogleBooks
 
             return result.Items.Select(b => new BookDetails()
             {
-                Title = b.VolumeInfo.Title
+                Title = b.VolumeInfo.Title,
+                Summary = b.VolumeInfo.Description,
+                Authors = b.VolumeInfo.Authors,
+                Isbn10 = b.VolumeInfo.IndustryIdentifiers.FirstOrDefault(i => i.Type == "ISBN_10").Identifier,
+                Isbn13 = b.VolumeInfo.IndustryIdentifiers.FirstOrDefault(i => i.Type == "ISBN_13").Identifier,
+                Thumbnail = b.VolumeInfo.ImageLinks.SmallThumbnail,
+                Language = b.VolumeInfo.Language,
+                PageCount = b.VolumeInfo.PageCount,
+                Publisher = b.VolumeInfo.Publisher
             });
         }
     }
