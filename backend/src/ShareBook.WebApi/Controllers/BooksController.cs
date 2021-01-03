@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ShareBook.Domain.Interfaces;
@@ -9,6 +10,7 @@ using ShareBook.Domain.Services;
 namespace ShareBook.WebApi.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("/books")]
     public class BooksController : ControllerBase
     {

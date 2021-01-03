@@ -88,8 +88,8 @@ namespace ShareBook.WebApi
                 options.RequireHttpsMetadata = false;
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {
-                    //ValidateIssuer = true,  
-                    //ValidateAudience = true,  
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
                     //ValidAudience = _configuration["JWT:ValidAudience"],  
                     //ValidIssuer = _configuration["JWT:ValidIssuer"],  
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]))
@@ -111,6 +111,8 @@ namespace ShareBook.WebApi
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
+            
             app.UseRouting();
 
             app.UseAuthorization();
