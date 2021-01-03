@@ -10,6 +10,7 @@ namespace ShareBook.Domain.Services
     public interface IBookService
     {
         Task<IEnumerable<BookDetails>> GetBooksByUserAsync(string userId);
+        Task<IEnumerable<BookDetails>> SearchByIsbn(string isbn);
     }
     public class BookService : IBookService
     {
@@ -37,6 +38,11 @@ namespace ShareBook.Domain.Services
                 Language = b.Language.Name,
                 Quantity = b.BookInstances.Count
             });
+        }
+
+        public Task<IEnumerable<BookDetails>> SearchByIsbn(string isbn)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

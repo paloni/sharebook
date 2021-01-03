@@ -13,6 +13,7 @@ using ShareBook.Data;
 using ShareBook.Data.Repositories;
 using ShareBook.Domain.Interfaces;
 using ShareBook.Domain.Services;
+using ShareBook.GoogleBooks;
 
 namespace ShareBook.WebApi
 {
@@ -38,8 +39,12 @@ namespace ShareBook.WebApi
                 .AddEntityFrameworkStores<ShareBookDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddHttpClient();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IBookService, BookService>();
+            services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IInternetBookService, GoogleBookService>();
 
             services.AddSwaggerGen(c =>
             {

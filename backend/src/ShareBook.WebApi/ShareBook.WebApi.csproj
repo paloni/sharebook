@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ShareBook.Domain\ShareBook.Domain.csproj" />
     <ProjectReference Include="..\ShareBook.Data\ShareBook.Data.csproj" />
+    <ProjectReference Include="..\ShareBook.GoogleBooks\ShareBook.GoogleBooks.csproj" />
   </ItemGroup>
 
 </Project>

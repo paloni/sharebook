@@ -18,9 +18,16 @@ namespace ShareBook.WebApi
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration(AddConfiguration)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+        public static void AddConfiguration(HostBuilderContext hostingContext, IConfigurationBuilder configBuilder)
+        {
+            configBuilder.Sources.Clear();
+            configBuilder.AddJsonFile("appsettings.json", optional: false);
+        }
     }
 }
