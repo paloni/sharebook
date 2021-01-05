@@ -11,6 +11,7 @@ namespace ShareBook.Domain.Services
     {
         Task<IEnumerable<BookDetails>> GetBooksByUserAsync(string userId);
         Task<IEnumerable<BookDetails>> SearchByIsbn(string isbn);
+        Task AddBookAsync(BookDetails book);
     }
     public class BookService : IBookService
     {
@@ -20,6 +21,12 @@ namespace ShareBook.Domain.Services
         {
             this.bookRepository = bookRepository;
         }
+
+        public Task AddBookAsync(BookDetails book)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public async Task<IEnumerable<BookDetails>> GetBooksByUserAsync(string userId)
         {
             IEnumerable<Book> models = await bookRepository.GetBooksByUserAsync(userId);

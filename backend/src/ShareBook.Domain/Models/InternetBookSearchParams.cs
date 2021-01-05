@@ -5,7 +5,7 @@ namespace ShareBook.Domain.Models
         public string Title { get; set; }
         public string Author { get; set; }
         public string Publisher { get; set; }
-        public string Subject { get; set; }
+        public string Subject { get; set; } = string.Empty;
         public string Isbn { get; set; }
     }
 }

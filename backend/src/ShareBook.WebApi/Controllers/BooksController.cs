@@ -16,13 +16,11 @@ namespace ShareBook.WebApi.Controllers
     {
         private readonly IBookService _bookService;
         private readonly ILogger<BooksController> _logger;
-        private readonly IInternetBookService _internetBookService;
 
-        public BooksController(IBookService _bookService, IInternetBookService _internetBookService, ILogger<BooksController> _logger)
+        public BooksController(IBookService bookService, ILogger<BooksController> logger)
         {
-            this._internetBookService = _internetBookService ?? throw new System.ArgumentNullException(nameof(_internetBookService));
-            this._bookService = _bookService ?? throw new System.ArgumentNullException(nameof(_bookService));
-            this._logger = _logger ?? throw new System.ArgumentNullException(nameof(_logger));
+            this._bookService = bookService ?? throw new System.ArgumentNullException(nameof(_bookService));
+            this._logger = logger ?? throw new System.ArgumentNullException(nameof(_logger));
         }
 
         [HttpGet("{userId}")]
@@ -30,10 +28,10 @@ namespace ShareBook.WebApi.Controllers
         {
             return await _bookService.GetBooksByUserAsync(userId);
         }
-        [HttpGet("isbn")]
-        public async Task<IEnumerable<BookDetails>> Search(string isbn)
+        [HttpPost]
+        public async Task Add(BookDetails book)
         {
-            return await _internetBookService.SearchAsync(new InternetBookSearchParams() { Isbn = isbn });
+            await _bookService.AddBookAsync(book);
         }
     }
 }

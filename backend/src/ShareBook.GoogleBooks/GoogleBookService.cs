@@ -13,6 +13,7 @@ namespace ShareBook.GoogleBooks
     {
         private readonly IHttpClientFactory _factory;
         private readonly HttpClient _client;
+        private GoogleUriHelper _uriHelper;
         private string _apiKey;
         public GoogleBookService(IHttpClientFactory factory, IConfiguration config)
         {
@@ -25,23 +26,28 @@ namespace ShareBook.GoogleBooks
         }
         public async Task<IEnumerable<BookDetails>> SearchAsync(InternetBookSearchParams searchParams)
         {
-            string requestUri = $"?q={searchParams.Isbn}+isbn:{searchParams.Isbn}&key={_apiKey}";
+            _uriHelper = new GoogleUriHelper(searchParams, _apiKey);
+            string requestUri = _uriHelper.GetUri();
+
             var response = await _client.GetAsync(requestUri);
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
-            var result = JsonSerializer.Deserialize<JsonBooksModel>(responseBody, options: new JsonSerializerOptions()
-            {
-                PropertyNameCaseInsensitive = true
-            });
+            var result = JsonSerializer
+                                        .Deserialize<JsonBooksModel>(
+                                                responseBody,
+                                                options: new JsonSerializerOptions()
+                                                {
+                                                    PropertyNameCaseInsensitive = true
+                                                });
 
             return result.Items.Select(b => new BookDetails()
             {
                 Title = b.VolumeInfo.Title,
                 Summary = b.VolumeInfo.Description,
                 Authors = b.VolumeInfo.Authors,
-                Isbn10 = b.VolumeInfo.IndustryIdentifiers.FirstOrDefault(i => i.Type == "ISBN_10").Identifier,
-                Isbn13 = b.VolumeInfo.IndustryIdentifiers.FirstOrDefault(i => i.Type == "ISBN_13").Identifier,
-                Thumbnail = b.VolumeInfo.ImageLinks.SmallThumbnail,
+                Isbn10 = b.VolumeInfo.IndustryIdentifiers.FirstOrDefault(i => i.Type == "ISBN_10")?.Identifier,
+                Isbn13 = b.VolumeInfo.IndustryIdentifiers.FirstOrDefault(i => i.Type == "ISBN_13")?.Identifier,
+                Thumbnail = b.VolumeInfo.ImageLinks?.SmallThumbnail,
                 Language = b.VolumeInfo.Language,
                 PageCount = b.VolumeInfo.PageCount,
                 Publisher = b.VolumeInfo.Publisher
