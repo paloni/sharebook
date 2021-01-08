@@ -1,4 +1,5 @@
 using System;
+using ShareBook.Domain.Helpers;
 
 namespace ShareBook.Domain.Entities
 {
@@ -11,13 +12,5 @@ namespace ShareBook.Domain.Entities
         public DateTime? LoanStarted { get; set; }
         public DateTime? DueBack { get; set; }
         public string BorrowerId { get; set; }
-    }
-    public enum LoanStatusType
-    {
-        Requested,
-        Declined,
-        Approved,
-        Given,
-        Returned
     }
 }

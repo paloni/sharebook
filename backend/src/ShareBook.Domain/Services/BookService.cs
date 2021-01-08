@@ -22,9 +22,9 @@ namespace ShareBook.Domain.Services
             this.bookRepository = bookRepository;
         }
 
-        public Task AddBookAsync(BookDetails book)
+        public async Task AddBookAsync(BookDetails book)
         {
-            throw new System.NotImplementedException();
+            await bookRepository.AddAsync(book);
         }
 
         public async Task<IEnumerable<BookDetails>> GetBooksByUserAsync(string userId)
@@ -42,7 +42,7 @@ namespace ShareBook.Domain.Services
                 Authors = b.Authors.Select(a => a.Name),
                 Genres = b.Genres.Select(g => g.Name),
                 Tags = b.Tags.Select(t => t.Name),
-                Language = b.Language.Name,
+                LanguageId = b.Language.LanguageId,
                 Quantity = b.BookInstances.Count
             });
         }

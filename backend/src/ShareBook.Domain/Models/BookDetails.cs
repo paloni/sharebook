@@ -16,7 +16,8 @@ namespace ShareBook.Domain.Models
         public IEnumerable<string> Authors { get; set; }
         public IEnumerable<string> Genres { get; set; }
         public IEnumerable<string> Tags { get; set; }
-        public string Language { get; set; }
+        public int LanguageId { get; set; }
         public int Quantity { get; set; }
+        public string OwnerId { get; set; }
     }
 }

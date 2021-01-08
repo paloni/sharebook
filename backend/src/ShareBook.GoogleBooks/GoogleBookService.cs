@@ -48,7 +48,6 @@ namespace ShareBook.GoogleBooks
                 Isbn10 = b.VolumeInfo.IndustryIdentifiers.FirstOrDefault(i => i.Type == "ISBN_10")?.Identifier,
                 Isbn13 = b.VolumeInfo.IndustryIdentifiers.FirstOrDefault(i => i.Type == "ISBN_13")?.Identifier,
                 Thumbnail = b.VolumeInfo.ImageLinks?.SmallThumbnail,
-                Language = b.VolumeInfo.Language,
                 PageCount = b.VolumeInfo.PageCount,
                 Publisher = b.VolumeInfo.Publisher
             });
