@@ -8,5 +8,6 @@ namespace ShareBook.Domain.Interfaces
     {
         Task<bool> UserExistAsync(string userName);
         Task<bool> CreateUserAsync(string email, string userName, string password);
+        Task<string> GetUserIdByName(string userName);
     }
 }

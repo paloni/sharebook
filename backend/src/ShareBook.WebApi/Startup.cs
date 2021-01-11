@@ -44,6 +44,7 @@ namespace ShareBook.WebApi
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ILanguageRepository, LanguageRepository>();
             services.AddScoped<IInternetBookService, GoogleBookService>();
 
             services.AddSwaggerGen(c =>
@@ -112,7 +113,7 @@ namespace ShareBook.WebApi
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
-            
+
             app.UseRouting();
 
             app.UseAuthorization();

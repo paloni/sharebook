@@ -45,6 +45,12 @@ namespace ShareBook.Data.Repositories
 
         }
 
+        public async Task<string> GetUserIdByName(string userName)
+        {
+            var user = await _userManager.FindByNameAsync(userName);
+            return user.Id;
+        }
+
         public async Task<bool> UserExistAsync(string userName)
         {
             return await _userManager.FindByNameAsync(userName) != null;

@@ -12,6 +12,8 @@ namespace ShareBook.Domain.Services
     {
         Task<bool> UserExistAsync(string userName);
         Task<bool> CreateUserAsync(string email, string userName, string password);
+
+        Task<string> GetUserIdByName(string userName);
     }
 
     public class UserService : IUserService
@@ -30,6 +32,10 @@ namespace ShareBook.Domain.Services
         public async Task<bool> UserExistAsync(string userName)
         {
             return await _userRepository.UserExistAsync(userName);
+        }
+        public async Task<string> GetUserIdByName(string userName)
+        {
+            return await _userRepository.GetUserIdByName(userName);
         }
     }
 }

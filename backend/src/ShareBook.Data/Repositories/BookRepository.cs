@@ -32,8 +32,7 @@ namespace ShareBook.Data.Repositories
                 Thumbnail = book.Thumbnail,
                 Isbn13 = book.Isbn13,
                 Isbn10 = book.Isbn10,
-                OwnerId = book.OwnerId,
-                LanguageId = book.LanguageId
+                OwnerId = book.OwnerId
             };
             _context.Books.Add(entity);
             await _context.SaveChangesAsync();

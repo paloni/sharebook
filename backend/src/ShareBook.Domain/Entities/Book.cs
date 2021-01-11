@@ -15,8 +15,7 @@ namespace ShareBook.Domain.Entities
         public IList<Genre> Genres { get; set; }
         public IList<BookInstance> BookInstances { get; set; }
         public IList<Tag> Tags { get; set; }
-        public int LanguageId { get; set; }
-        public Language Language { get; set; }
+        public IList<Language> Languages { get; set; }
         public string OwnerId { get; set; }
 
         public override string ToString()

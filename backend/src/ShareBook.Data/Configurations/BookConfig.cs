@@ -9,11 +9,6 @@ namespace ShareBook.Data.Configurations
         public void Configure(EntityTypeBuilder<Book> builder)
         {
             builder
-                    .HasOne<Language>(b => b.Language)
-                    .WithMany(g => g.Books)
-                    .HasForeignKey(b => b.LanguageId);
-
-            builder
                     .HasMany(b => b.Authors)
                     .WithMany(a => a.Books)
                     .UsingEntity(a => a.ToTable("BookAuthors"));
@@ -32,6 +27,11 @@ namespace ShareBook.Data.Configurations
                     .HasMany(b => b.Tags)
                     .WithMany(b => b.Books)
                     .UsingEntity(b => b.ToTable("BookTags"));
+
+            builder
+                .HasMany(b => b.Languages)
+                .WithMany(b => b.Books)
+                .UsingEntity(b => b.ToTable("BookLanguages"));
 
             builder.Property(b => b.Title).IsRequired();
             builder.Property(b => b.OwnerId).IsRequired();

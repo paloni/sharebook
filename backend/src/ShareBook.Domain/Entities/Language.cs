@@ -6,6 +6,7 @@ namespace ShareBook.Domain.Entities
     {
         public int LanguageId { get; set; }
         public string Name { get; set; }
+        public string Abbriviation { get; set; }
         public IList<Book> Books { get; set; }
 
         public override string ToString()
